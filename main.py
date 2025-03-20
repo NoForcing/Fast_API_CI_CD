@@ -56,7 +56,8 @@ class CreditData(BaseModel):
 async def predict(credit_data: CreditData):
     try:
         # Convertir l'objet Pydantic en dictionnaire, puis en DataFrame
-        data_dict = credit_data.dict()
+        data_dict = credit_data.model_dump()
+
         df = pd.DataFrame([data_dict])
         print("Données reçues :\n", df.head())
 
