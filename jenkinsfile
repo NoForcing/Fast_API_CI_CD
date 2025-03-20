@@ -1,0 +1,47 @@
+
+pipeline {
+    agent any
+        stages {
+            stage('checkout') {
+                steps {
+                  git branch: 'main', url:'https://github.com/Racdia/model_scoring_backend_api.git'
+                }
+            }
+            stage('Install dependencies') {
+                steps {
+                    bat 'python -m venv venv'
+                }
+            }
+            stage('Run script') {
+                steps {
+                    bat '\\venv\\bin\\activate'
+                   // bat 'pip install -r requirements.txt'
+                    bat 'python main.py'
+                }
+            }
+            stage('Show results') {
+
+            }
+
+    }
+    post {
+         success {
+                 emailext subject: " Build SUCCESS: ${env.JOB_NAME}
+                #${env.BUILD_NUMBER}",
+                 body: "Le build de ${env.JOB_NAME} a réussi.\nConsultez les logs ici:
+                ${env.BUILD_URL}",
+                 recipientProviders: [[$class: 'DevelopersRecipientProvider']],
+                 to: ' diallomamadouracine84@gmail.com'
+             }
+             failure {
+                 emailext subject: " Build FAILURE: ${env.JOB_NAME}
+                #${env.BUILD_NUMBER}",
+                 body: "Le build de ${env.JOB_NAME} a échoué.\nConsultez les logs ici:
+                ${env.BUILD_URL}",
+                 recipientProviders: [[$class: 'DevelopersRecipientProvider']],
+                 to: 'diallomamadouracine84@gmail.com'
+             }
+         }
+    }
+
+}
