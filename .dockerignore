@@ -1,0 +1,23 @@
+# Ignore l'environnement virtuel
+env/
+
+.pytest_cache/
+__pycache__/
+
+# Ignore les fichiers liés à Git
+.git/
+
+# Ignore les fichiers de logs
+*.log
+
+# Ignore le fichier .gitignore
+.gitignore
+
+# Ignore le fichier Jenkinsfile
+Jenkinsfile
+
+# Ignore le fichier data_preprocessing.py
+data_preprocessing.py
+
+# Ignore les fichiers .env (si tu as des fichiers de configuration locaux)
+.env
